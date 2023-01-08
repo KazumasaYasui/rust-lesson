@@ -1,3 +1,23 @@
+struct Fruit {
+    name: String,
+}
+
+impl Fruit {
+    fn get_name(&self) -> &str {
+        &self.name
+    }
+}
+
+struct Rectangle(i32, i32);
+
+impl Rectangle {
+    fn calc_area(&self) -> i32 {
+    self.0 * self.1
+    }
+}
+
+struct Unit;
+
 fn main() {
     println!("Hello, world!");
     variables();
@@ -11,6 +31,16 @@ fn main() {
     let z = 20;
     let add_z = |x: i32| x + z;
     println!("{}", add_z(10));
+
+    let banana = Fruit {
+        name: String::from("Banana"),
+    };
+    println!("this fruit name is {}", banana.get_name());
+
+    let rect = Rectangle(10, 20);
+    println!("this rectangle area is {}", rect.calc_area());
+
+    let _unit = Unit;
 }
 
 fn variables() {
