@@ -18,6 +18,29 @@ impl Rectangle {
 
 struct Unit;
 
+enum Color {
+    Red,
+    Green,
+    Blue,
+    Custom(u8, u8, u8),
+}
+
+impl Color {
+    fn color_code(&self) -> String {
+        match self {
+            Color::Red => String::from("#ff0000"),
+            Color::Green => String::from("#00ff00"),
+            Color::Blue => String::from("#0000ff"),
+            Color::Custom(r, g, b) => {
+                format!(
+                    "#{:02x}{:02x}{:02x}",
+                    r, g, b
+                )
+            }
+        }
+    }
+}
+
 fn main() {
     println!("Hello, world!");
     variables();
@@ -41,6 +64,16 @@ fn main() {
     println!("this rectangle area is {}", rect.calc_area());
 
     let _unit = Unit;
+
+    let color_b = Color::Blue;
+    println!("blue's color code is {}", color_b.color_code());
+    let color_g = Color::Green;
+    println!("green's color code is {}", color_g.color_code());
+    let color_r = Color::Red;
+    println!("red's color code is {}", color_r.color_code());
+
+    let color_custom = Color::Custom(10, 123, 255);
+    println!("this custom color code is {}", color_custom.color_code());
 }
 
 fn variables() {
