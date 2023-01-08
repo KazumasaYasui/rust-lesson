@@ -2,6 +2,7 @@ fn main() {
     println!("Hello, world!");
     variables();
     conditional_branch();
+    iteration();
 }
 
 fn variables() {
@@ -49,4 +50,24 @@ fn conditional_branch() {
 
     let z = if x != y { 500 } else { 300 };
     println!("z value is {}", z);
+}
+
+fn iteration() {
+    for i in 0..10 {
+        println!("in for-loop: {}", i);
+    }
+
+    let mut count = 0;
+    while count < 10 {
+        println!("current count is {}", count);
+        count += 1;
+    }
+
+    loop {
+        count -= 1;
+        println!("current count is {}", count);
+        if count == 0 {
+            break;
+        }
+    }
 }
