@@ -4,6 +4,13 @@ fn main() {
     conditional_branch();
     iteration();
     pattern_match();
+
+    let added = add(10, 20);
+    println!("{}", added);
+
+    let z = 20;
+    let add_z = |x: i32| x + z;
+    println!("{}", add_z(10));
 }
 
 fn variables() {
@@ -89,4 +96,8 @@ fn pattern_match() {
     };
 
     println!("{}", is_zero_str);
+}
+
+fn add(x: i32, y: i32) -> i32 {
+    x + y
 }
