@@ -41,6 +41,16 @@ impl Color {
     }
 }
 
+// enum Option<T> {
+//     None,
+//     Some(T),
+// }
+
+// enum Result<T, E> {
+//     Ok(T),
+//     Err(E),
+// }
+
 fn main() {
     println!("Hello, world!");
     variables();
@@ -74,6 +84,26 @@ fn main() {
 
     let color_custom = Color::Custom(10, 123, 255);
     println!("this custom color code is {}", color_custom.color_code());
+
+    let some_value: Option<i32> = Some(10);
+    let none_value: Option<i32> = None;
+    match some_value {
+        Some(v) => println!("some value = {}", v),
+        None => println!("none value"),
+    }
+    if let None = none_value {
+        println!("none value");
+    }
+
+    let ok_value: Result<i32, &'static str> = Ok(200);
+    let err_value: Result<i32, &'static str> = Err("error message");
+    match ok_value {
+        Ok(v) => println!("ok value = {}", v),
+        Err(e) => println!("err value = {}", e),
+    }
+    if let Err(e) = err_value {
+        println!("err value = {}", e);
+    }
 }
 
 fn variables() {
