@@ -104,6 +104,9 @@ fn main() {
     if let Err(e) = err_value {
         println!("err value = {}", e);
     }
+
+    ownership();
+    lifetime_parameter();
 }
 
 fn variables() {
@@ -194,3 +197,53 @@ fn pattern_match() {
 fn add(x: i32, y: i32) -> i32 {
     x + y
 }
+
+fn ownership() {
+    // 所有権の移動
+    {
+        let x = String::from("hello");
+        // ここで移動する
+        let y = x;
+
+        // 所有権がxからyに移動しているのでxは使えない
+        // println!("{}", x);
+        println!("y is {}", y);
+    } // yはこの時点で解放される
+
+    // 借用
+    {
+        let z = String::from("hello");
+        {
+            // ここで借用する
+            let w = &z;
+
+            // zはwが借用しているのでsに所有権を移動できない
+            // let s = z;
+            // println!("{}", s);
+
+            println!("w is {}", w);
+        } // wはこの時点で解放される
+
+        println!("z is {}", z);
+    } // zはこの時点で解放される
+}
+
+struct Greet<'a> {
+    word: &'a str,
+}
+
+impl<'a> Greet<'a> {
+    fn say(&self) {
+        println!("{}", self.word);
+    }
+}
+
+fn lifetime_parameter() {
+    let hello: &str = "Hello!";
+    {
+        let greet = Greet { word: hello };
+        greet.say();
+    } // greetはここで解放される
+
+    println!("{}", hello);
+} // helloはここで解放される
