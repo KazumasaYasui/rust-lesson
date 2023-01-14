@@ -51,6 +51,21 @@ impl Color {
 //     Err(E),
 // }
 
+trait Greeter {
+    fn greet(&self);
+}
+
+struct Person(String);
+
+impl Greeter for Person {
+    fn greet(&self) {
+        println!("Hello, I am {}!", self.0);
+    }
+}
+
+#[derive(Debug)]
+struct Hours(u32);
+
 fn main() {
     println!("Hello, world!");
     variables();
@@ -107,6 +122,13 @@ fn main() {
 
     ownership();
     lifetime_parameter();
+
+    let person = Person(String::from("Kazumasa"));
+    person.greet();
+
+    let h = Hours(5);
+    println!("{:?}", h);
+    println!("{}", h.0);
 }
 
 fn variables() {
