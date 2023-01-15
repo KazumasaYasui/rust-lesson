@@ -1,3 +1,5 @@
+use first_project::custom_vec;
+
 struct Fruit {
     name: String,
 }
@@ -129,6 +131,9 @@ fn main() {
     let h = Hours(5);
     println!("{:?}", h);
     println!("{}", h.0);
+
+    let custom_v: Vec<u32> = custom_vec![10, 20, 30];
+    println!("custom_vec => 1:{}, 2:{}, 3:{}", custom_v[0], custom_v[1], custom_v[2]);
 }
 
 fn variables() {
