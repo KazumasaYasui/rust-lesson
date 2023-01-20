@@ -1,3 +1,6 @@
+use rand::random;
+
 fn main() {
-    println!("Hello, world!");
+    let random_number: i32 = random();
+    println!("{}", random_number);
 }
