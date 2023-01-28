@@ -13,6 +13,9 @@ async fn create_post(
     new_post: web::Json<NewPost>,
 ) -> Result<HttpResponse, ApiError> {
     let new_post = new_post.into_inner();
+    if !new_post.validate() {
+        return Ok(HttpResponse::BadRequest().body("length of title is invalid."));
+    }
     let post = repo.create_post(new_post).await?;
     Ok(HttpResponse::Ok().json(post))
 }

@@ -4,7 +4,7 @@ use actix_web::web;
 use diesel::prelude::*;
 use diesel::r2d2::{self, ConnectionManager};
 use diesel::sqlite::SqliteConnection;
-use serde::{Deserialize, Serialize};
+use serde::{Deserialize, Deserializer, Serialize};
 
 type DbPool = r2d2::Pool<ConnectionManager<SqliteConnection>>;
 
@@ -53,8 +53,22 @@ impl Repository {
 #[derive(Deserialize, Insertable)]
 #[diesel(table_name = posts)]
 pub struct NewPost {
+    #[serde(deserialize_with = "max100")]
     title: String,
     body: String,
+}
+
+fn max100<'de, D>(de: D) -> Result<String, D::Error>
+where
+    D: Deserializer<'de>,
+{
+    String::deserialize(de).and_then(|s| {
+        if !s.is_empty() && s.len() <= 100 {
+            Ok(s)
+        } else {
+            Err(serde::de::Error::custom("string length is 0 or too long."))
+        }
+    })
 }
 
 #[derive(Serialize, Queryable)]
@@ -63,6 +77,12 @@ pub struct Post {
     title: String,
     body: String,
     published: bool,
+}
+
+impl NewPost {
+    pub fn validate(&self) -> bool {
+        !self.title.is_empty() && self.title.len() <= 100
+    }
 }
 
 #[cfg(test)]
